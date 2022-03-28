@@ -28,4 +28,9 @@ public abstract class NewRoadEvent extends Event{
 	
 	abstract Road getRoadType(RoadMap map);
 	
+	@Override
+	public String toString() {
+		return "New Road '" + id + "'";
+	}
+	
 }

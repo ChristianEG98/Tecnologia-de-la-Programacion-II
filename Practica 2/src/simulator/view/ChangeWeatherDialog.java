@@ -26,9 +26,13 @@ public class ChangeWeatherDialog extends JDialog{
 	
 	private static final long serialVersionUID = 1L;
 	private Controller ctrl;
+	private List<Road> roadList;
+	private int time;
 
-	public ChangeWeatherDialog(Controller _ctrl) {
+	public ChangeWeatherDialog(Controller _ctrl, List<Road> roads, int time) {
 		ctrl = _ctrl;
+		roadList = roads;
+		this.time = time;
 		initGUI();
 		setLocationRelativeTo(null);
 	}
@@ -53,11 +57,13 @@ public class ChangeWeatherDialog extends JDialog{
 		JLabel roadsLabel = new JLabel("Road: ");
 		buttonsPanel.add(roadsLabel);
 		JComboBox<Road> roads = new JComboBox<Road>();
+		for(Road r: roadList) roads.addItem(r);
 		buttonsPanel.add(roads);
 		
 		JLabel weatherLabel = new JLabel("Weather: ");
 		buttonsPanel.add(weatherLabel);
 		JComboBox<Weather> weather = new JComboBox<Weather>();
+		for(Weather w: Weather.values()) weather.addItem(w);
 		buttonsPanel.add(weather);
 		
 		JLabel ticksLabel = new JLabel("Ticks: ");
@@ -78,7 +84,7 @@ public class ChangeWeatherDialog extends JDialog{
 		cancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ChangeWeatherDialog.this.setVisible(false);
+				setVisible(false);
 			}
 		});
 		confirmButtons.add(cancel);
@@ -89,8 +95,9 @@ public class ChangeWeatherDialog extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				List<Pair<String, Weather>> ws = new ArrayList<>();
 				ws.add(new Pair<String, Weather>(roads.getSelectedItem().toString(), Weather.valueOf(weather.getSelectedItem().toString())));
-				Event event = new SetWeatherEvent(/*actual time + */ Integer.parseInt(ticks.getValue().toString()), ws);
+				Event event = new SetWeatherEvent(time + Integer.parseInt(ticks.getValue().toString()), ws);
 				ctrl.addEvent(event);
+				setVisible(false);
 			}
 		});
 		confirmButtons.add(ok);

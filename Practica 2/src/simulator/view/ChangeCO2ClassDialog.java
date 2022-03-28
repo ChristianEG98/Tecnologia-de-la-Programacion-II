@@ -25,9 +25,13 @@ public class ChangeCO2ClassDialog extends JDialog{
 
 	private static final long serialVersionUID = 1L;
 	private Controller ctrl;
+	private List<Vehicle> vehicleList;
+	private int time;
 
-	public ChangeCO2ClassDialog(Controller _ctrl) {
+	public ChangeCO2ClassDialog(Controller _ctrl, List<Vehicle> vehicles, int time) {
 		ctrl = _ctrl;
+		vehicleList = vehicles;
+		this.time = time;
 		initGUI();
 		setLocationRelativeTo(null);
 	}
@@ -52,11 +56,13 @@ public class ChangeCO2ClassDialog extends JDialog{
 		JLabel vehiclesLabel = new JLabel("Vehicle: ");
 		buttonsPanel.add(vehiclesLabel);
 		JComboBox<Vehicle> vehicles = new JComboBox<Vehicle>();
+		for(Vehicle v: vehicleList) vehicles.addItem(v);
 		buttonsPanel.add(vehicles);
 		
 		JLabel co2ClassLabel = new JLabel("CO2 Class: ");
 		buttonsPanel.add(co2ClassLabel);
 		JComboBox<Integer> co2Class = new JComboBox<Integer>();
+		for(int i = 0; i <= 10; i++) co2Class.addItem(i);
 		buttonsPanel.add(co2Class);
 		
 		JLabel ticksLabel = new JLabel("Ticks: ");
@@ -77,7 +83,7 @@ public class ChangeCO2ClassDialog extends JDialog{
 		cancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ChangeCO2ClassDialog.this.setVisible(false);
+				setVisible(false);
 			}
 		});
 		confirmButtons.add(cancel);
@@ -88,8 +94,9 @@ public class ChangeCO2ClassDialog extends JDialog{
 			public void actionPerformed(ActionEvent e) {
 				List<Pair<String, Integer>> cs = new ArrayList<>();
 				cs.add(new Pair<String, Integer>(vehicles.getSelectedItem().toString(), Integer.parseInt(co2Class.getSelectedItem().toString())));
-				Event event = new SetContClassEvent(/*actual time + */ Integer.parseInt(ticks.getValue().toString()), cs);
+				Event event = new SetContClassEvent(time + Integer.parseInt(ticks.getValue().toString()), cs);
 				ctrl.addEvent(event);
+				setVisible(false);
 			}
 		});
 		confirmButtons.add(ok);

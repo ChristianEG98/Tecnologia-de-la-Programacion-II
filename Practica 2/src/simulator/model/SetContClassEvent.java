@@ -24,9 +24,13 @@ public class SetContClassEvent extends Event{
 	@Override
 	public String toString() {
 		String s = "Change CO2 class: [";
-		for(int i = 0; i < cs.size(); i++) {
-			s += "(" + cs.get(i).getFirst() + "," + cs.get(i).getSecond() + ")";
-			if(cs.size() > 0) s += ", ";
+		if(cs.size() > 0) {
+			s += "(" + cs.get(0).getFirst() + "," + cs.get(0).getSecond() + ")";
+			
+			for(int i = 1; i < cs.size(); i++) {
+				s += ", ";
+				s += "(" + cs.get(i).getFirst() + "," + cs.get(i).getSecond() + ")";
+			}
 		}
 		s += "]";
 		return s;

@@ -205,21 +205,13 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 	}
 
 	@Override
-	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {
-		vehicles = map.getVehicles();
-		roads = map.getRoads();
-		this.time = time;
-	}
+	public void onEventAdded(RoadMap map, List<Event> events, Event e, int time) {}
 
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {}
 
 	@Override
-	public void onRegister(RoadMap map, List<Event> events, int time) {
-		vehicles = map.getVehicles();
-		roads = map.getRoads();
-		this.time = time;
-	}
+	public void onRegister(RoadMap map, List<Event> events, int time) {}
 
 	@Override
 	public void onError(String err) {}

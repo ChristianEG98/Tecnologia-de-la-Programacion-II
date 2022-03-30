@@ -144,7 +144,7 @@ public class Main {
 		_eventsFactory = new BuilderBasedFactory<>(ebs);
 	}
 
-	private static void startBatchMode() throws IOException {
+	private static void startBatchMode() throws Exception {
 		TrafficSimulator sim = new TrafficSimulator();
 		Controller c = new Controller(sim, _eventsFactory);
 		//Cargamos los eventos que leemos del fichero
@@ -171,7 +171,7 @@ public class Main {
 		});
 	}
 
-	private static void start(String[] args) throws IOException {
+	private static void start(String[] args) throws Exception {
 		initFactories();
 		parseArgs(args);
 		if(consoleMode) startBatchMode();

@@ -27,30 +27,37 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 		}
 	}
 	
-	public void advance() {
-		//a
-		time++;
-		for(TrafficSimObserver tso: observers) {
-			tso.onAdvanceStart(roadMap, events, time);;
-		}
-		//b
-		List<Event> unexecuted = new SortedArrayList<Event>();
-		for (int i = 0; i < events.size(); i++) {
-			if (events.get(i).getTime() != this.time) unexecuted.add(events.get(i));
-			else events.get(i).execute(roadMap);
-		}	
-		events = unexecuted;
-		//c
-		for(int i = 0; i < roadMap.getJunctions().size(); i++) {
-			roadMap.getJunctions().get(i).advance(time);
-		}
-		
-		//d
-		for(int i = 0; i < roadMap.getRoads().size(); i++) {
-			roadMap.getRoads().get(i).advance(time);
-		}
-		for(TrafficSimObserver tso: observers) {
-			tso.onAdvanceEnd(roadMap, events, time);;
+	public void advance() throws Exception {
+		try {
+			//a
+			time++;
+			for(TrafficSimObserver tso: observers) {
+				tso.onAdvanceStart(roadMap, events, time);;
+			}
+			//b
+			List<Event> unexecuted = new SortedArrayList<Event>();
+			for (int i = 0; i < events.size(); i++) {
+				if (events.get(i).getTime() != this.time) unexecuted.add(events.get(i));
+				else events.get(i).execute(roadMap);
+			}	
+			events = unexecuted;
+			//c
+			for(int i = 0; i < roadMap.getJunctions().size(); i++) {
+				roadMap.getJunctions().get(i).advance(time);
+			}
+			
+			//d
+			for(int i = 0; i < roadMap.getRoads().size(); i++) {
+				roadMap.getRoads().get(i).advance(time);
+			}
+			for(TrafficSimObserver tso: observers) {
+				tso.onAdvanceEnd(roadMap, events, time);
+			}
+		} catch(Exception e) {
+			for(TrafficSimObserver tso: observers) {
+				tso.onError(e.getMessage());
+			}
+			throw new Exception(e.getMessage());
 		}
 	}
 	

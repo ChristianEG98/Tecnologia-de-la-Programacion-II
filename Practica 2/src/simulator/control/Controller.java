@@ -37,7 +37,7 @@ public class Controller {
 		}	
 	}
 	
-	public void run(int n, OutputStream out) {
+	public void run(int n, OutputStream out) throws Exception{
 		JSONObject jo = new JSONObject();
 		JSONArray ja = new JSONArray();
 		while(n > 0) {
@@ -50,7 +50,7 @@ public class Controller {
 		p.println(jo);
 	}
 	
-	public void run(int n) {
+	public void run(int n) throws Exception {
 		while(n > 0) {
 			sim.advance();
 			n--;

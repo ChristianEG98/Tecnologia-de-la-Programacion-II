@@ -73,6 +73,8 @@ public class StatusBar extends JPanel implements TrafficSimObserver{
 	}
 
 	@Override
-	public void onError(String err) {}
+	public void onError(String err) {
+		eventLabel.setText("There has been an error during the execution of the simulation");
+	}
 
 }

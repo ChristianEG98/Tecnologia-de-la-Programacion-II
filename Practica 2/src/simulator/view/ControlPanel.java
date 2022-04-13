@@ -61,7 +61,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver{
 		open.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileChooser = new JFileChooser();
+				JFileChooser fileChooser = new JFileChooser("resources/examples");
 				int option = fileChooser.showOpenDialog(null);
 				if(option == JFileChooser.APPROVE_OPTION) {
 					_ctrl.reset();

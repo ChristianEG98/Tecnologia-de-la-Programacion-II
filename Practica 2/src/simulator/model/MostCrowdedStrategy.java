@@ -31,10 +31,10 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy{
 		//d
 		int length = 0;
 		int currGreenAux = (currGreen + 1) % roads.size();
-		for(int i = (currGreen + 1) % roads.size(); i < roads.size(); i++) {
-			if(qs.get(i).size() > length) {
-				length = qs.get(i).size();
-				currGreenAux = i;
+		for(int i = (currGreen + 1); i < currGreen + 1 + roads.size(); i++) {
+			if(qs.get(i % roads.size()).size() > length) {
+				length = qs.get(i % roads.size()).size();
+				currGreenAux = i % roads.size();
 			}
 		}
 		return currGreenAux;

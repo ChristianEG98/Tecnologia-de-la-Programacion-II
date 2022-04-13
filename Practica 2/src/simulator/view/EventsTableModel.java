@@ -72,6 +72,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 	@Override
 	public void onReset(RoadMap map, List<Event> events, int time) {
 		events = null;
+		this.fireTableDataChanged();
 		
 	}
 
